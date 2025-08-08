@@ -1,0 +1,24 @@
+#Añadir .env y carpeta en /mnt
+services:
+  transmission:
+    container_name: transmission
+    image: lscr.io/linuxserver/transmission:latest
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Europe/Madrid
+      - TRANSMISSION_WEB_HOME= #optional
+      - USER=[USUAURIO] #optional
+      - PASS=[CONTRASEÑA] #optional
+      - WHITELIST= #optional
+      - PEERPORT= #optional
+      - HOST_WHITELIST= #optional
+    volumes:
+      - ./data:/config
+      - ${STORAGE}/torrents:/downloads
+      - ./folder:/watch
+    ports:
+      - 9091:9091
+      - 51413:51413
+      - 51413:51413/udp
+    restart: unless-stopped
